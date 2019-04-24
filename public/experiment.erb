@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="card-deck mt-2">
+      <% @tasks.each do |task| %>
+        <div class="col-sm-2 mt-3 ml-5 mr-5">
+          <% if task["done"] %>
+            <div class="card text-center text-white bg-success" style="width: 14rem;">
+              <div class="card-header">
+                <form action="/delete/<%= task["id"] %>" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+              <div class="card-body">
+                <div >
+                  <strong>Done!</strong>
+                </div>
+                <h5 class="card-title"><%= task["title"] %></h5>
+              </div>
+            </div>
+          <% else %>
+            <div class="card text-center text-white bg-warning" style="width: 14rem;">
+              <div class="card-header">
+                <form action="/delete/<%= task["id"] %>" method="post">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+              <div class="card-body">
+                <div >
+                  <strong>Not Done</strong>
+                </div>
+                <div class="form-group">
+                  <form action="/update/<%= task["id"] %>" method="post">
+                    <input type="hidden" name="_method" value="patch">
+                    <button type="submit">
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> <%= task["title"] %></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-7 mt-3">
+      <% @tasks.each do |task| %>
+        <div class="row text-center align-items-center">
+          <% if task["done"] %>
+            <div class="col-sm-3 d-inline-block">
+              <div class="form-group">
+                <div class="alert alert-success">
+                  <strong>Done!</strong>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="col-sm-3 d-inline-block">
+              <div class="form-group">
+                <form action="/update/<%= task["id"] %>" method="post">
+                  <input type="hidden" name="_method" value="patch">
+                  <button type="submit"  class="btn btn-warning pl-3 pr-3 pt-2 pb-2 ">
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Mark as Done</button>
+                </form>
+              </div>
+            </div>
+          <% end %>
+          <div class="col-sm-7 d-inline-block">
+            <h4><%= task["title"] %></h4>
+          </div>
+          <div class="col-sm-2 d-inline-block">
+            <div class="form-group">
+              <form action="/delete/<%= task["id"] %>" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit" class="btn btn-outline-danger p-2">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
